@@ -54,6 +54,7 @@ bool GuardarEquipo(Equipo equipo){
 	// este metodo devuelve TRUE si pudo guardar el equipo, FALSE si no pudo
 	// TODO: hay que hacerlo
 	// ASIGNED TO:
+	return false;
 }
 
 void AgregarEquipo(){
