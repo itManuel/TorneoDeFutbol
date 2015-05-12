@@ -60,38 +60,29 @@ bool GuardarEquipo(Equipo equipo){
 void AgregarEquipo(){
 	Equipo equipo;
 	char modificar[1];
-	cout << "____________________________________________________________________________" << endl;
-	cout << "|                                                                          |\\" << endl;
-	cout << "|                         Nunca Viste Un Torneo Así (TM)                   ||" << endl;
-	cout << "|                                                                          ||" << endl;
-	cout << "|   Ingrese el identificador (3 caracteres):                               ||" << endl;
+	cout << "Ingrese el identificador (3 caracteres): ";
 	cin >> equipo.id;
-	cin >> modificar;
 	if(YaEstaEquipo(equipo.id)){
-		cout << "| Este equipo ya se encuentra cargado, desea modificarlo? (S/N)            ||" << endl;
+		cout << " ## Este equipo ya se encuentra cargado, desea modificarlo? (S/N):";
 		cin >> modificar;
 		if(modificar=="y"|| modificar=="Y"){
 			ModificarEquipo(equipo.id);
 		}
 	} else {
-		cout << "|   Ingrese el nombre (31 caracteres):                                     ||" << endl;
+		cout << "Ingrese el nombre (31 caracteres): ";
 		cin >> equipo.nombre;
-		cout << "|   Ingrese potencia de ataque:                                            ||" << endl;
+		cout << "Ingrese potencia de ataque (0-100): ";
 		cin >> equipo.potenciaAtaque;
-		cout << "|   Ingrese potencia de defensa:                                           ||" << endl;
+		cout << "Ingrese potencia de defensa: ";
 		cin >> equipo.potenciaDefensa;
-		cout << "|                                                                          ||" << endl;
-		cout << "|                          procesando...                                   ||" << endl;
-		cout << "|                                                                          ||" << endl;
 		if(GuardarEquipo(equipo)){
-			cout << "|        equipo guardado satisfactoriamente                                ||" << endl;
+			cout << "        equipo guardado satisfactoriamente, presione ENTER para continuar" << endl;
+			cin >> modificar;
 
 		} else {
-			cout << "|        ERROR                                                             ||" << endl;
-
+			cout << "        ERROR - el equipo no se pudo guardar. Presione ENTER para volver al menú" << endl;
+			cin >> modificar;
 		}
-		cout << "|__________________________________________________________________________||" << endl;
-		cout << " \\_________________________________________________________________________\\|" << endl;
 	}
 }
 
@@ -104,6 +95,7 @@ int main() {
 		switch (opcion){
 			case 1:
 				AgregarEquipo();
+				MostrarMenu();
 				break;
 			case 2:
 				cout << "Esto hará que entres en el menú de eliminar equipo" << endl;
