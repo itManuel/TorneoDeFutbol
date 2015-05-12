@@ -18,9 +18,9 @@ struct Equipo {
 
 int MostrarMenu(){
 	int opcion;
-	cout << "____________________________________________________________________________" << endl;
+	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
-	cout << "|                         Nunca Viste Un Torneo Así (TM)                   ||" << endl;
+	cout << "|                         Nunca Viste Un Torneo Asi� (TM)                  ||" << endl;
 	cout << "|                                                                          ||" << endl;
 	cout << "|              Menu                                                        ||" << endl;
 	cout << "|              1. Agregar Equipo                                           ||" << endl;
@@ -32,7 +32,7 @@ int MostrarMenu(){
 	cout << "|__________________________________________________________________________||" << endl;
 	cout << " \\_________________________________________________________________________\\|" << endl;
 	cout << endl;
-	cout << " Ingrese su opción (y presione 'enter'): ";
+	cout << " Ingrese su opcion (y presione 'enter'): ";
 	cin >> opcion;
 	return opcion;
 }
@@ -80,7 +80,7 @@ void AgregarEquipo(){
 			cin >> modificar;
 
 		} else {
-			cout << "        ERROR - el equipo no se pudo guardar. Presione ENTER para volver al menú" << endl;
+			cout << "        ERROR - el equipo no se pudo guardar. Presione ENTER para volver al menu" << endl;
 			cin >> modificar;
 		}
 	}
