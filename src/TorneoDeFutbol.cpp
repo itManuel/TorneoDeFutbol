@@ -98,7 +98,7 @@ int main() {
 				MostrarMenu();
 				break;
 			case 2:
-				cout << "Esto hará que entres en el menú de eliminar equipo" << endl;
+				cout << "Esto hará que entres en el menú de eliminar equipo Y LO VA A HACER IAN" << endl;
 				break;
 			case 3:
 				cout << "Esto hará que entres en el menú de ver equipos" << endl;
