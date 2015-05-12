@@ -73,7 +73,7 @@ void AgregarEquipo(){
 		cin >> equipo.nombre;
 		cout << "Ingrese potencia de ataque (0-100): ";
 		cin >> equipo.potenciaAtaque;
-		cout << "Ingrese potencia de defensa: ";
+		cout << "Ingrese potencia de defensa (0-100): ";
 		cin >> equipo.potenciaDefensa;
 		if(GuardarEquipo(equipo)){
 			cout << "        equipo guardado satisfactoriamente, presione ENTER para continuar" << endl;
