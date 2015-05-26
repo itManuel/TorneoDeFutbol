@@ -27,6 +27,10 @@ using namespace std;
 
 
 int MostrarMenu(){
+	// muestra el menú y devuelve la opción seleccionada
+	//
+	// Manuel
+
 	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
@@ -50,7 +54,7 @@ int MostrarMenu(){
 bool YaEstaEquipo(char id[3]){
 	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
 	// TODO: errores en determinar por ID, como si leyera y escribiera en distintos formatos
-	// ASIGNED TO:
+	// ASIGNED TO: Manuel
 	Equipo equipo;
 	bool devuelvo=false;
 	FILE* archivo = fopen(FILENAME, "rb");
@@ -75,7 +79,8 @@ void ModificarEquipo(char id[3]){
 bool GuardarEquipo(Equipo equipo){
 	// este metodo devuelve TRUE si pudo guardar el equipo, FALSE si no pudo
 	// TODO: hay que hacerlo
-	// ASIGNED TO:
+	// ASIGNED TO: Manuel
+
 
 	FILE* archivo = fopen(FILENAME, "wb");
 
@@ -87,7 +92,9 @@ bool GuardarEquipo(Equipo equipo){
 
 
 void VerEquipos(){
-
+	// muestra los equipos del archivo
+	//
+	// Manuel
 	Equipo equipo;
 	FILE* archivo = fopen(FILENAME, "rb");
 	cout << "Lista de equipos:" << endl;
@@ -107,6 +114,10 @@ void VerEquipos(){
 
 
 void AgregarEquipo(){
+	// función para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
+	//
+	// Manuel
+
 	Equipo equipo;
 	char modificar[1];
 
@@ -140,6 +151,9 @@ void AgregarEquipo(){
 
 
 int main() {
+	// función Main.
+	// Manuel
+
 	int opcion=1;
 	while(opcion!=0){
 		opcion=MostrarMenu();
