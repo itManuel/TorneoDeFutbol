@@ -11,8 +11,8 @@
 #include <fstream>
 
 struct Equipo {
-	char id[3];
-	char nombre[31];
+	char id[4];
+	char nombre[32];
 	int potenciaAtaque;
 	int potenciaDefensa;
 };
@@ -51,7 +51,7 @@ int MostrarMenu(){
 	return opcion;
 }
 
-bool YaEstaEquipo(char id[3]){
+bool YaEstaEquipo(char id[4]){
 	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
 	// TODO: errores en determinar por ID, como si leyera y escribiera en distintos formatos
 	// ASIGNED TO: Manuel
@@ -59,18 +59,18 @@ bool YaEstaEquipo(char id[3]){
 	bool devuelvo=false;
 	FILE* archivo = fopen(FILENAME, "rb");
 	while(!feof(archivo)){
-
 		fread(&equipo,sizeof(equipo),1,archivo);
-		if(equipo.id==id){
+		cout << "comparando: |" << id << "| con |" << equipo.id << "|" << endl;
+		if ( equipo.id == id ){
+			cout << "ENTRE!!" << endl;
 			devuelvo=true;
 		}
-
 	}
 	fclose(archivo);
 	return devuelvo;
 }
 
-void ModificarEquipo(char id[3]){
+void ModificarEquipo(char id[4]){
 	// este metodo busca el equipo por el id que recibe, y permite modificarlo
 	// TODO: hay que desarrollarlo
 	// ASIGNED TO:
@@ -78,11 +78,10 @@ void ModificarEquipo(char id[3]){
 
 bool GuardarEquipo(Equipo equipo){
 	// este metodo devuelve TRUE si pudo guardar el equipo, FALSE si no pudo
-	// TODO: hay que hacerlo
+	// TODO:
 	// ASIGNED TO: Manuel
 
-
-	FILE* archivo = fopen(FILENAME, "wb");
+	FILE* archivo = fopen(FILENAME, "a");
 
 	fwrite(&equipo, sizeof(equipo), 1, archivo);
 	fclose(archivo);
@@ -98,13 +97,10 @@ void VerEquipos(){
 	Equipo equipo;
 	FILE* archivo = fopen(FILENAME, "rb");
 	cout << "Lista de equipos:" << endl;
+	fread(&equipo,sizeof(equipo),1,archivo);
 	while(!feof(archivo)){
-
+		cout << equipo.id << " " << equipo.nombre << " (" << equipo.potenciaAtaque << " - " << equipo.potenciaDefensa << ")" << endl;
 		fread(&equipo,sizeof(equipo),1,archivo);
-		if(equipo.id!=""){
-			cout << equipo.id << " " << equipo.nombre << " (" << equipo.potenciaAtaque << " - " << equipo.potenciaDefensa << ")" << endl;
-		}
-
 	}
 	fclose(archivo);
 	return;
@@ -115,8 +111,6 @@ void VerEquipos(){
 
 void AgregarEquipo(){
 	// función para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
-	//
-	// Manuel
 
 	Equipo equipo;
 	char modificar[1];
