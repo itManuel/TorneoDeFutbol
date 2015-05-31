@@ -50,21 +50,6 @@ int MostrarMenu(){
 	return opcion;
 }
 
-bool YaEstaEquipo(char id[4],Equipo equipo[100]){
-	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
-	// TODO: errores en determinar por ID, como si leyera y escribiera en distintos formatos
-	// ASIGNED TO: Manuel
-	bool devuelvo=false;
-	int i;
-	for(i=0;i<100;i++){
-		if ( equipo[i].id == id ){
-			cout << "ENTRE!!" << endl;
-			devuelvo=true;
-		}
-	}
-	return devuelvo;
-}
-
 void ModificarEquipo(char id[4]){
 	// este metodo busca el equipo por el id que recibe, y permite modificarlo
 	// TODO: hay que desarrollarlo
