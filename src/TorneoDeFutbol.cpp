@@ -34,7 +34,7 @@ int MostrarMenu(){
 	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
-	cout << "|                         Nunca Viste Un Torneo Afa­ (TM)                   ||" << endl;
+	cout << "|                         Torneo master race locura (TM)                   ||" << endl;
 	cout << "|                                                                          ||" << endl;
 	cout << "|              Menu                                                        ||" << endl;
 	cout << "|              1. Agregar Equipo                                           ||" << endl;
