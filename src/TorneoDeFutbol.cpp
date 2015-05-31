@@ -27,10 +27,9 @@ using namespace std;
 
 
 int MostrarMenu(){
-	// muestra el menú y devuelve la opción seleccionada
-	//
+	// muestra el menu y devuelve la opcion seleccionada
 	// Manuel
-	//Lucas Agrega comentario
+
 	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
@@ -110,7 +109,7 @@ void VerEquipos(){
 
 
 void AgregarEquipo(){
-	// función para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
+	// funcion para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
 
 	Equipo equipo;
 	char modificar[1];
@@ -127,7 +126,7 @@ void AgregarEquipo(){
 		}
 	} else {
 		cout << "Ingrese el nombre (31 caracteres): ";
-/* por alguna razón, esta línea de abajo sólo toma la primer palabra, hasta el espacio. */
+/* por alguna razon, esta linea de abajo solo toma la primer palabra, hasta el espacio. */
 		cin >> equipo.nombre;
 
 		cout << "Ingrese potencia de ataque (0-100): ";
@@ -145,7 +144,7 @@ void AgregarEquipo(){
 
 
 int main() {
-	// función Main.
+	// funcion Main.
 	// Manuel
 
 	int opcion=1;
