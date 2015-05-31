@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : TorneoDeFutbol.cpp
-// Author      : Manuel Fernando Aller
+// Author      : Manuel Fernando Aller, Ian Alexis Bassi, Lucas Manuel Blanco y Mateo Tozzini.
 // Version     :
 // Copyright   : (c) grupo 114
-// Description : Simulación de torneo de Fútbol
+// Description : Simulacion de torneo de Futbol
 //============================================================================
 
 
@@ -34,7 +34,7 @@ int MostrarMenu(){
 	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
-	cout << "|                         Nunca Viste Un Torneo Así (TM)                   ||" << endl;
+	cout << "|                         Nunca Viste Un Torneo Afa� (TM)                   ||" << endl;
 	cout << "|                                                                          ||" << endl;
 	cout << "|              Menu                                                        ||" << endl;
 	cout << "|              1. Agregar Equipo                                           ||" << endl;
