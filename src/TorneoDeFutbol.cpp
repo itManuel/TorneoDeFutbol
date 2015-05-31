@@ -145,7 +145,7 @@ void AgregarEquipo(){
 
 
 int main() {
-	// función Main.
+	// funcion Main.
 	// Manuel
 
 	int opcion=1;
@@ -156,7 +156,7 @@ int main() {
 				AgregarEquipo();
 				break;
 			case 2:
-				cout << "Esto hará que entres en el menú de eliminar equipo Y LO VA A HACER IAN" << endl;
+				cout << "Esto hara� que entres en el menu de eliminar equipo Y LO VA A HACER IAN" << endl;
 				break;
 			case 3:
 				VerEquipos();
@@ -165,7 +165,7 @@ int main() {
 				cout << "SALIR" << endl;;
 				break;
 			default:
-				cout << opcion << " no es una opción válida, intente nuevamente" << endl;
+				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
 		}
 	}
 	cout << "Gracias por usar nuestro programa!" << endl;
