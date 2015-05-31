@@ -50,22 +50,18 @@ int MostrarMenu(){
 	return opcion;
 }
 
-bool YaEstaEquipo(char id[4]){
+bool YaEstaEquipo(char id[4],Equipo equipo[100]){
 	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
 	// TODO: errores en determinar por ID, como si leyera y escribiera en distintos formatos
 	// ASIGNED TO: Manuel
-	Equipo equipo;
 	bool devuelvo=false;
-	FILE* archivo = fopen(FILENAME, "rb");
-	while(!feof(archivo)){
-		fread(&equipo,sizeof(equipo),1,archivo);
-		cout << "comparando: |" << id << "| con |" << equipo.id << "|" << endl;
-		if ( equipo.id == id ){
+	int i;
+	for(i=0;i<100;i++){
+		if ( equipo[i].id == id ){
 			cout << "ENTRE!!" << endl;
 			devuelvo=true;
 		}
 	}
-	fclose(archivo);
 	return devuelvo;
 }
 
@@ -75,98 +71,96 @@ void ModificarEquipo(char id[4]){
 	// ASIGNED TO:
 }
 
-bool GuardarEquipo(Equipo equipo){
-	// este metodo devuelve TRUE si pudo guardar el equipo, FALSE si no pudo
-	// TODO:
-	// ASIGNED TO: Manuel
-
-	FILE* archivo = fopen(FILENAME, "a");
-
-	fwrite(&equipo, sizeof(equipo), 1, archivo);
-	fclose(archivo);
-	return true;
-}
-
-
-
-void VerEquipos(){
+void VerEquipos(int lineas,Equipo equipo[]){
 	// muestra los equipos del archivo
 	//
 	// Manuel
-	Equipo equipo;
-	FILE* archivo = fopen(FILENAME, "rb");
+	int i;
 	cout << "Lista de equipos:" << endl;
-	fread(&equipo,sizeof(equipo),1,archivo);
-	while(!feof(archivo)){
-		cout << equipo.id << " " << equipo.nombre << " (" << equipo.potenciaAtaque << " - " << equipo.potenciaDefensa << ")" << endl;
-		fread(&equipo,sizeof(equipo),1,archivo);
+	for(i=0;i<lineas;i++){
+		cout << equipo[i].id << " " << equipo[i].nombre << " (" << equipo[i].potenciaAtaque << " - " << equipo[i].potenciaDefensa << ")" << endl;
 	}
-	fclose(archivo);
 	return;
 }
 
-
-
-
-void AgregarEquipo(){
-	// funcion para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
-
-	Equipo equipo;
-	char modificar[1];
-
+void AgregarEquipo(int &lineas, Equipo equipo[]){
+	int i;
+	bool agregar=true;
+	Equipo nuevoEquipo;
 	cout << "Ingrese el identificador (3 caracteres): ";
-
-	cin >> equipo.id;
-
-	if(YaEstaEquipo(equipo.id)){
-		cout << " ## Este equipo ya se encuentra cargado, desea modificarlo? (S/N):";
-		cin >> modificar;
-		if(modificar=="y"|| modificar=="Y"){
-			ModificarEquipo(equipo.id);
+	cin >> nuevoEquipo.id;
+	for(i=0;i<lineas;i++){
+		if(equipo[i].id==nuevoEquipo.id){
+			agregar=false;
 		}
-	} else {
+	}
+	if(agregar){
 		cout << "Ingrese el nombre (31 caracteres): ";
 /* por alguna razon, esta linea de abajo solo toma la primer palabra, hasta el espacio. */
-		cin >> equipo.nombre;
-
+		cin >> nuevoEquipo.nombre;
 		cout << "Ingrese potencia de ataque (0-100): ";
-		cin >> equipo.potenciaAtaque;
+		cin >> nuevoEquipo.potenciaAtaque;
 		cout << "Ingrese potencia de defensa (0-100): ";
-		cin >> equipo.potenciaDefensa;
-		if(GuardarEquipo(equipo)){
-			cout << "        equipo guardado satisfactoriamente" << endl;
-		} else {
-			cout << "        ERROR - el equipo no se pudo guardar." << endl;
-		}
+		cin >> nuevoEquipo.potenciaDefensa;
+		lineas++;
+		equipo[lineas]=nuevoEquipo;
+	} else {
+		ModificarEquipo(nuevoEquipo.id);
 	}
 	return;
 }
-
 
 int main() {
 	// funcion Main.
 	// Manuel
+
+	/* abro el archivo al principio, cargo los equipos en un array y cierro el archivo. Trabajamos con los datos en memoria. */
+	Equipo equipo[100];
+	int i;
+	int lineas=0;
+
+	FILE* archivo = fopen(FILENAME, "rb");
+	fread(&equipo[lineas],sizeof(equipo),1,archivo);
+	lineas++;
+	while(!feof(archivo)){
+		fread(&equipo[lineas],sizeof(equipo),1,archivo);
+		lineas++;
+	}
+	fclose(archivo);
+/* muestro lo que cargue del archivo */
+	for(i=0;i<lineas;i++){
+		cout << equipo[i].id << " " << equipo[i].nombre << " (" << equipo[i].potenciaAtaque << " - " << equipo[i].potenciaDefensa << ")" << endl;
+	}
+
 
 	int opcion=1;
 	while(opcion!=0){
 		opcion=MostrarMenu();
 		switch (opcion){
 			case 1:
-				AgregarEquipo();
+				AgregarEquipo(lineas,equipo);
 				break;
 			case 2:
-				cout << "Esto hará que entres en el menú de eliminar equipo Y LO VA A HACER IAN" << endl;
+				cout << "Esto hara que entres en el menu de eliminar equipo Y LO VA A HACER IAN" << endl;
 				break;
 			case 3:
-				VerEquipos();
+				VerEquipos(lineas,equipo);
 				break;
 			case 0:
 				cout << "SALIR" << endl;;
 				break;
 			default:
-				cout << opcion << " no es una opción válida, intente nuevamente" << endl;
+				cout << opcion << " no es una opción valida, intente nuevamente" << endl;
 		}
 	}
+
+	/* ahora guardo todo en el archivo: */
+	archivo = fopen(FILENAME,"wb");
+	for(i=0;i<lineas;i++){
+		fwrite(&equipo[i], sizeof(equipo), 1, archivo);
+	}
+	fclose(archivo);
+
 	cout << "Gracias por usar nuestro programa!" << endl;
 
 	return 0;
