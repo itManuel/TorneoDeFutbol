@@ -56,7 +56,7 @@ int MostrarMenu(){
 bool YaEstaEquipo(char id[4]){
 	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
 
-	Equipo equipo;
+
 	bool devuelvo=false;
 
 	FILE* archivo = fopen(FILENAME, "rb");
@@ -77,7 +77,7 @@ void ModificarEquipo(char id[4]){
 	// este metodo busca el equipo por el id que recibe, y permite modificarlo
 
 	
-	Equipo equipo;
+
 
 	FILE* archivo = fopen(FILENAME, "r+");
 	fread(&equipo,sizeof(equipo),1,archivo);
@@ -120,7 +120,7 @@ bool GuardarEquipo(Equipo equipo){
 void VerEquipos(){
 	// muestra los equipos del archivo
 	
-	Equipo equipo;
+
 	FILE* archivo = fopen(FILENAME, "rb");
 	if(archivo==NULL){
 	cout<<"El archivo esta vacio. Agregue un equipo para poder realizar la visualizacion";
@@ -143,7 +143,6 @@ void VerEquipos(){
 void AgregarEquipo(){
 	// funcion para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
 
-	Equipo equipo;
 	char modificar[1];
 
 	cout << "Ingrese el identificador (3 caracteres): ";
@@ -183,7 +182,7 @@ void EliminarEquipo(){
 char id[4];
 char modificar[1];
 int n;
-Equipo equipo;
+
 
 cout<<"Ingrese el identificador del equipo que desea borrar. ";
 cin>>id;
