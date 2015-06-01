@@ -110,8 +110,12 @@ bool GuardarEquipo(Equipo equipo){
 	// ASIGNED TO: Manuel
 
 	FILE* archivo = fopen(FILENAME, "a");
-
+	
+	if(ftell(archivo)<=4400){ //Cada equipo ocupa 44 bit, cuando sean 100 equipos el archivo va a contener 4400 bits
 	fwrite(&equipo, sizeof(equipo), 1, archivo);
+	}else{
+		cout<<"Ya se encuentran cargados 100 equipos. Elimine un equipo o modifique uno ya existente.";
+	}
 	fclose(archivo);
 	return true;
 }
@@ -125,7 +129,7 @@ void VerEquipos(){
 	Equipo equipo;
 	FILE* archivo = fopen(FILENAME, "rb");
 	if(archivo==NULL){
-	cout<<"El archivo esta vacio";
+	cout<<"El archivo esta vacio. Agregue un equipo para poder realizar la visualizacion";
 	}else{
 		cout << "Lista de equipos:" << endl;
 		fread(&equipo,sizeof(equipo),1,archivo);
