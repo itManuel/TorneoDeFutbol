@@ -23,7 +23,7 @@ struct Equipo {
 namespace {
 
 const char* FILENAME = "EQUIPOS.BIN";
-const char* FILENAME2 = "EQUIPOS2.BIN";
+
 }
 
 using namespace std;
@@ -82,12 +82,9 @@ void ModificarEquipo(char id[4]){
 	
 	Equipo equipo;
 
-	FILE* archivo2 = fopen(FILENAME2, "a");
-	FILE* archivo = fopen(FILENAME, "rb");
+	FILE* archivo = fopen(FILENAME, "r+");
 	fread(&equipo,sizeof(equipo),1,archivo);
 	while(!feof(archivo)){
-		
-	
 			if ( strcmp(equipo.id,id)==0){ //strcmp compara ambos parametros y si son iguales devuelve un 0
 			cout << "Ingrese el nombre (31 caracteres): ";
 			cin >> equipo.nombre;
@@ -95,14 +92,16 @@ void ModificarEquipo(char id[4]){
 			cin >> equipo.potenciaAtaque;
 			cout << "Ingrese potencia de defensa (0-100): ";
 			cin >> equipo.potenciaDefensa;
-			
-		
+			fseek(archivo,ftell(archivo)-44,SEEK_SET);
+			fwrite(&equipo, sizeof(equipo), 1, archivo);
+			goto final;
 		}else
-		fwrite(&equipo, sizeof(equipo), 1, archivo2);
+	
 		fread(&equipo,sizeof(equipo),1,archivo);
 	}
-		final:
+		final:	
 		fclose(archivo);
+	
 }
 
 bool GuardarEquipo(Equipo equipo){
