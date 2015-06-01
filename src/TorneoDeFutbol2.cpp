@@ -39,7 +39,7 @@ int MostrarMenu(){
 	cout << "|                         Nunca Viste Un Torneo Asi (TM)                   ||" << endl;
 	cout << "|                                                                          ||" << endl;
 	cout << "|              Menu                                                        ||" << endl;
-	cout << "|              1. Agregar Equipo o Editar Equipos                          ||" << endl;
+	cout << "|              1. Agregar o Editar Equipo                                  ||" << endl;
 	cout << "|              2. Eliminar Equipo                                          ||" << endl;
 	cout << "|              3. Ver Equipos                                              ||" << endl;
 	cout << "|              0. Salir                                                    ||" << endl;
