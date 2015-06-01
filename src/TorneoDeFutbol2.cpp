@@ -13,17 +13,18 @@
 #include <string.h>
 #include <conio.h>
 
+
 struct Equipo {
 	char id[4];
 	char nombre[32];
 	int potenciaAtaque;
 	int potenciaDefensa;
-};
+}equipo;
 
 namespace {
 
 const char* FILENAME = "EQUIPOS.BIN";
-
+const char* FILEtemp = "EQUIPOStemp.BIN";
 }
 
 using namespace std;
@@ -114,7 +115,7 @@ bool GuardarEquipo(Equipo equipo){
 	if(ftell(archivo)<=4400){ //Cada equipo ocupa 44 bit, cuando sean 100 equipos el archivo va a contener 4400 bits
 	fwrite(&equipo, sizeof(equipo), 1, archivo);
 	}else{
-		cout<<"Ya se encuentran cargados 100 equipos. Elimine un equipo o modifique uno ya existente.";
+		cout<<"Ya se encuentran cargados 100 equipos. Elimine o modifique un equipo ya existente.";
 	}
 	fclose(archivo);
 	return true;
@@ -134,12 +135,12 @@ void VerEquipos(){
 		cout << "Lista de equipos:" << endl;
 		fread(&equipo,sizeof(equipo),1,archivo);
 		while(!feof(archivo)){
+			
 			cout << equipo.id << " " << equipo.nombre << " (" << equipo.potenciaAtaque << " - " << equipo.potenciaDefensa << ")" << endl;
 			fread(&equipo,sizeof(equipo),1,archivo);
 		}
 	}
 	fclose(archivo);
-	return;
 
 }
 
@@ -160,7 +161,7 @@ void AgregarEquipo(){
 	if(YaEstaEquipo(equipo.id)){
 		cout << " ## Este equipo ya se encuentra cargado, desea modificarlo? (S/N):";
 		cin >> modificar;
-		if(strcmp(modificar,"s")==0){
+		if(strcmp(modificar,"s")==0||strcmp(modificar,"S")==0){
 			
 		
 			ModificarEquipo(equipo.id);
@@ -183,6 +184,59 @@ void AgregarEquipo(){
 	return;
 }
 
+void EliminarEquipo2(){
+int n=0;
+
+	FILE* archivo = fopen(FILENAME, "a");
+	FILE* archivotemp = fopen(FILEtemp, "rb");	
+	//Se copia el archivo EQUIPOStemp.BIN a EQUIPOS.BIN 	
+	fread(&equipo,sizeof(equipo),1,archivotemp);
+	while(!feof(archivotemp)){
+		fseek(archivo,ftell(archivo)-44,SEEK_SET);
+		fwrite(&equipo, sizeof(equipo), 1, archivo);
+		cout<<"Escribo "<<n++<<endl;
+		getch();
+		fread(&equipo,sizeof(equipo),1,archivotemp);
+		}
+	
+	fclose(archivo);
+	fclose(archivotemp);	
+	//Se borra EQUIPOStemp.BIN
+	remove("EQUIPOStemp.BIN");	
+}
+
+void EliminarEquipo(){
+//Funcion para eliminar equipos.	
+char id[4];
+char modificar[1];
+int n;
+Equipo equipo;
+
+cout<<"Ingrese el identificador del equipo que desea borrar. ";
+cin>>id;
+FILE* archivo = fopen(FILENAME, "rb");
+FILE* archivotemp = fopen(FILEtemp, "a");
+ //A continuacion se copia los registros de EQUIPOS.BIN a EQUIPOStemp.BIN, descartando el registro que se quiere eliminar
+	fread(&equipo,sizeof(equipo),1,archivo);
+	while(!feof(archivo)){
+		if (strcmp(equipo.id,id)!=0){
+		fseek(archivotemp,ftell(archivotemp)-44,SEEK_SET);
+		fwrite(&equipo, sizeof(equipo), 1, archivotemp);
+		}
+			
+		fread(&equipo,sizeof(equipo),1,archivo); 
+	}
+	
+	fclose(archivotemp);
+	fclose(archivo);
+	//Se borra EQUIPOS.BIN
+	remove("EQUIPOS.BIN");
+
+}
+
+
+
+
 
 int main() {
 	// funcion Main.
@@ -198,12 +252,14 @@ int main() {
 				system("cls"); //Borra la pantalla
 				break;
 			case 2:
-				cout << "Esto hara que entres en el menu de eliminar equipo Y LO VA A HACER IAN" << endl;
+				EliminarEquipo();
+				EliminarEquipo2();
 				system("cls");
 				break;
 			case 3:
 				VerEquipos();
-				getch();
+				getch(); 
+			
 				system("cls");
 				break;
 			case 0:
