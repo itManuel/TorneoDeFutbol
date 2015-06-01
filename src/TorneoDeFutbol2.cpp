@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : TorneoDeFutbol.cpp
-// Author      : Manuel Fernando Aller, Ian Alexis Bassi, Lucas Blanco y Mateo Tozzini
+// Author      : Manuel Fernando Aller
 // Version     :
 // Copyright   : (c) grupo 114
 // Description : Simulacion de torneo de Futbol
@@ -180,9 +180,7 @@ void AgregarEquipo(){
 	return;
 }
 
-void EliminarEquipo(){
-	
-}
+
 int main() {
 	// funcion Main.
 	// Manuel
@@ -197,7 +195,7 @@ int main() {
 				system("cls"); //Borra la pantalla
 				break;
 			case 2:
-				EliminarEquipos();
+				cout << "Esto hara que entres en el menu de eliminar equipo Y LO VA A HACER IAN" << endl;
 				system("cls");
 				break;
 			case 3:

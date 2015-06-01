@@ -27,7 +27,10 @@ using namespace std;
 
 
 int MostrarMenu(){
-		int opcion;
+	// muestra el menu y devuelve la opcion seleccionada
+	// Manuel
+
+	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
 	cout << "|                         Torneo master race locura (TM)                   ||" << endl;
@@ -78,6 +81,7 @@ void AgregarEquipo(int &lineas, Equipo equipo[]){
 	}
 	if(agregar){
 		cout << "Ingrese el nombre (31 caracteres): ";
+/* por alguna razon, esta linea de abajo solo toma la primer palabra, hasta el espacio. */
 		cin >> nuevoEquipo.nombre;
 		cout << "Ingrese potencia de ataque (0-100): ";
 		cin >> nuevoEquipo.potenciaAtaque;
