@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : TorneoDeFutbol.cpp
-// Author      : Manuel Fernando Aller
+// Author      : Manuel Fernando Aller, Blanco Lucas, Tozzini Mateo, Bassi Ian.
 // Version     :
 // Copyright   : (c) grupo 114
 // Description : Simulacion de torneo de Futbol
@@ -32,9 +32,7 @@ using namespace std;
 
 int MostrarMenu(){
 	// muestra el menu y devuelve la opcion seleccionada
-	//
-	// Manuel
-
+	
 	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
@@ -57,8 +55,7 @@ int MostrarMenu(){
 
 bool YaEstaEquipo(char id[4]){
 	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
-	// TODO: errores en determinar por ID, como si leyera y escribiera en distintos formatos
-	// ASIGNED TO: Manuel
+
 	Equipo equipo;
 	bool devuelvo=false;
 
@@ -78,8 +75,7 @@ bool YaEstaEquipo(char id[4]){
 
 void ModificarEquipo(char id[4]){
 	// este metodo busca el equipo por el id que recibe, y permite modificarlo
-	// TODO: hay que desarrollarlo
-	// ASIGNED TO: Lucas
+
 	
 	Equipo equipo;
 
@@ -93,6 +89,8 @@ void ModificarEquipo(char id[4]){
 			cin >> equipo.potenciaAtaque;
 			cout << "Ingrese potencia de defensa (0-100): ";
 			cin >> equipo.potenciaDefensa;
+			cout<<"Posicion "<<ftell(archivo)-44<<endl;
+			getch();
 			fseek(archivo,ftell(archivo)-44,SEEK_SET);
 			fwrite(&equipo, sizeof(equipo), 1, archivo);
 			goto final;
@@ -107,16 +105,12 @@ void ModificarEquipo(char id[4]){
 
 bool GuardarEquipo(Equipo equipo){
 	// este metodo devuelve TRUE si pudo guardar el equipo, FALSE si no pudo
-	// TODO:
-	// ASIGNED TO: Manuel
+
 
 	FILE* archivo = fopen(FILENAME, "a");
-	
-	if(ftell(archivo)<=4400){ //Cada equipo ocupa 44 bit, cuando sean 100 equipos el archivo va a contener 4400 bits
+
 	fwrite(&equipo, sizeof(equipo), 1, archivo);
-	}else{
-		cout<<"Ya se encuentran cargados 100 equipos. Elimine o modifique un equipo ya existente.";
-	}
+
 	fclose(archivo);
 	return true;
 }
@@ -125,8 +119,7 @@ bool GuardarEquipo(Equipo equipo){
 
 void VerEquipos(){
 	// muestra los equipos del archivo
-	//
-	// Manuel
+	
 	Equipo equipo;
 	FILE* archivo = fopen(FILENAME, "rb");
 	if(archivo==NULL){
@@ -184,26 +177,6 @@ void AgregarEquipo(){
 	return;
 }
 
-void EliminarEquipo2(){
-int n=0;
-
-	FILE* archivo = fopen(FILENAME, "a");
-	FILE* archivotemp = fopen(FILEtemp, "rb");	
-	//Se copia el archivo EQUIPOStemp.BIN a EQUIPOS.BIN 	
-	fread(&equipo,sizeof(equipo),1,archivotemp);
-	while(!feof(archivotemp)){
-		fseek(archivo,ftell(archivo)-44,SEEK_SET);
-		fwrite(&equipo, sizeof(equipo), 1, archivo);
-		cout<<"Escribo "<<n++<<endl;
-		getch();
-		fread(&equipo,sizeof(equipo),1,archivotemp);
-		}
-	
-	fclose(archivo);
-	fclose(archivotemp);	
-	//Se borra EQUIPOStemp.BIN
-	remove("EQUIPOStemp.BIN");	
-}
 
 void EliminarEquipo(){
 //Funcion para eliminar equipos.	
@@ -231,7 +204,7 @@ FILE* archivotemp = fopen(FILEtemp, "a");
 	fclose(archivo);
 	//Se borra EQUIPOS.BIN
 	remove("EQUIPOS.BIN");
-
+	rename("EQUIPOStemp.BIN", "EQUIPOS.BIN");
 }
 
 
@@ -253,7 +226,7 @@ int main() {
 				break;
 			case 2:
 				EliminarEquipo();
-				EliminarEquipo2();
+			
 				system("cls");
 				break;
 			case 3:
