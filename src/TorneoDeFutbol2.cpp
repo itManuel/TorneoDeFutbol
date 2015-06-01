@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : TorneoDeFutbol.cpp
-// Author      : Manuel Fernando Aller, Blanco Lucas, Tozzini Mateo, Bassi Ian.
+// Author      : Aller Manuel Fernando, Blanco Lucas, Tozzini Mateo, Bassi Ian.
 // Version     :
 // Copyright   : (c) grupo 114
 // Description : Simulacion de torneo de Futbol
@@ -39,7 +39,7 @@ int MostrarMenu(){
 	cout << "|                         Nunca Viste Un Torneo Asi (TM)                   ||" << endl;
 	cout << "|                                                                          ||" << endl;
 	cout << "|              Menu                                                        ||" << endl;
-	cout << "|              1. Agregar Equipo\Editar Equipos                            ||" << endl;
+	cout << "|              1. Agregar Equipo o Editar Equipos                          ||" << endl;
 	cout << "|              2. Eliminar Equipo                                          ||" << endl;
 	cout << "|              3. Ver Equipos                                              ||" << endl;
 	cout << "|              0. Salir                                                    ||" << endl;
@@ -129,7 +129,7 @@ void VerEquipos(){
 		fread(&equipo,sizeof(equipo),1,archivo);
 		while(!feof(archivo)){
 			
-			cout << equipo.id << " " << equipo.nombre << " (" << equipo.potenciaAtaque << " - " << equipo.potenciaDefensa << ")" << endl;
+			cout <<"Id:"<< equipo.id << ". Nombre:" << equipo.nombre << ". Ataque:" << equipo.potenciaAtaque << ". Defensa:" << equipo.potenciaDefensa << ")" << endl;
 			fread(&equipo,sizeof(equipo),1,archivo);
 		}
 	}
@@ -145,7 +145,7 @@ void AgregarEquipo(){
 
 	char modificar[1];
 
-	cout << "Ingrese el identificador (3 caracteres): ";
+	cout << "Ingrese el identificador del equipo que quiere crear o editar (3/4 Letras): ";
 
 	cin >> equipo.id;
 	
@@ -159,7 +159,7 @@ void AgregarEquipo(){
 			ModificarEquipo(equipo.id);
 		}
 	} else {
-		cout << "Ingrese el nombre (31 caracteres): ";
+		cout << "Ingrese el nombre (max31 caracteres): ";
 
 		cin >> equipo.nombre;
 
