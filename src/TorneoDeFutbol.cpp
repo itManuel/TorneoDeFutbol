@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
 
 struct Equipo {
 	char id[4];
@@ -54,6 +55,7 @@ void ModificarEquipo(char id[4]){
 	// este metodo busca el equipo por el id que recibe, y permite modificarlo
 	// TODO: hay que desarrollarlo
 	// ASIGNED TO:
+	return;
 }
 
 void VerEquipos(int lineas,Equipo equipo[]){
@@ -75,7 +77,8 @@ void AgregarEquipo(int &lineas, Equipo equipo[]){
 	cout << "Ingrese el identificador (3 caracteres): ";
 	cin >> nuevoEquipo.id;
 	for(i=0;i<lineas;i++){
-		if(equipo[i].id==nuevoEquipo.id){
+		if(strcmp(equipo[i].id, nuevoEquipo.id) == 0)
+		{
 			agregar=false;
 		}
 	}
@@ -90,6 +93,7 @@ void AgregarEquipo(int &lineas, Equipo equipo[]){
 		lineas++;
 		equipo[lineas]=nuevoEquipo;
 	} else {
+		cout << "Debo modificar!" << endl;
 		ModificarEquipo(nuevoEquipo.id);
 	}
 	return;
