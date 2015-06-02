@@ -11,7 +11,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
-#include <conio.h> // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+#include <conio.h> // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 
 
 struct Equipo {
@@ -90,7 +90,7 @@ void ModificarEquipo(char id[4]){
 			cout << "Ingrese potencia de defensa (0-100): ";
 			cin >> equipo.potenciaDefensa;
 			cout<<"Posicion "<<ftell(archivo)-44<<endl;
-			getch(); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+			getch(); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 			fseek(archivo,ftell(archivo)-44,SEEK_SET);
 			fwrite(&equipo, sizeof(equipo), 1, archivo);
 			goto final;
@@ -221,26 +221,26 @@ int main() {
 		switch (opcion){
 			case 1:
 				AgregarEquipo();
-				system("cls"); //Borra la pantalla // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+				system("cls"); //Borra la pantalla // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 				break;
 			case 2:
 				EliminarEquipo();
 			
-				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 				break;
 			case 3:
 				VerEquipos();
-				getch();  // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+				getch();  // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 			
-				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 				break;
 			case 0:
 				cout << "SALIR" << endl;;
 				break;
 			default:
 				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
-				getch(); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
-				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux.
+				getch(); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
+				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 		}
 	}
 	cout << "Gracias por usar nuestro programa!" << endl;
