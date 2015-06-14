@@ -75,16 +75,13 @@ void CargarEquipos(Equipo equipos[], int &lineas){
 	int i;
 
 	FILE* archivo = fopen(FILENAME, "rb");
-	fread(&equipos[lineas],sizeof(equipos),1,archivo);
+	fread(&equipos[lineas],sizeof(Equipo),1,archivo);
 	while(!feof(archivo)){
 		lineas++;
-		fread(&equipos[lineas],sizeof(equipos),1,archivo);
+		fread(&equipos[lineas],sizeof(Equipo),1,archivo);
 	}
 	fclose(archivo);
-/* Sólo con fines de debug, muestro lo que cargue del archivo */
-	for(i=0;i<lineas;i++){
-		cout << equipos[i].id << " " << equipos[i].nombre << " (" << equipos[i].potenciaAtaque << " - " << equipos[i].potenciaDefensa << ")" << endl;
-	}
+
 	return;
 }
 
@@ -95,10 +92,8 @@ void GuardarEquipos(Equipo equipos[], int lineas){
 	/* ahora guardo equipos en el archivo: */
 
 	for(i=0;i<lineas;i++){
-		cout << "Guardando: " << equipos[i].id << "|" << equipos[i].nombre << "|" << equipos[i].potenciaAtaque << "|" << equipos[i].potenciaDefensa << endl;
-		fwrite(&equipos[i], sizeof(equipos), 1, archivo);
+		fwrite(&equipos[i], sizeof(Equipo), 1, archivo);
 	}
-	// fwrite(&equipos, sizeof(equipos), 1, archivo);
 	fclose(archivo);
 	return;
 }
@@ -153,7 +148,6 @@ int main() {
 	int lineas=0;
 	CargarEquipos(equipos, lineas);
 	MenuPrincipal(equipos, lineas);
-	cout << "tengo " << lineas << endl;
 	GuardarEquipos(equipos, lineas);
 
 	cout << "Gracias por usar nuestro programa!" << endl;
