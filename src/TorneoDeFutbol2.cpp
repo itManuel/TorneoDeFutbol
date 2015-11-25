@@ -29,16 +29,38 @@ const char* FILEtemp = "EQUIPOStemp.BIN";
 
 using namespace std;
 
-
-int MostrarMenu(){
-	// muestra el menu y devuelve la opcion seleccionada
-	
+int MostrarMenuUno(){
+	// muestra el menu uno y devuelve la opcion seleccionada
+	system("cls");
 	int opcion;
 	cout << " __________________________________________________________________________" << endl;
 	cout << "|                                                                          |\\" << endl;
 	cout << "|                         Nunca Viste Un Torneo Asi (TM)                   ||" << endl;
 	cout << "|                                                                          ||" << endl;
-	cout << "|              Menu                                                        ||" << endl;
+	cout << "|              Menu 1                                                      ||" << endl;
+	cout << "|              1. Editar Equipo                                            ||" << endl;
+	cout << "|              2. Simular                                                  ||" << endl;
+	cout << "|              0. Salir                                                    ||" << endl;
+	cout << "|                                                                          ||" << endl;
+	cout << "|                                                                          ||" << endl;
+	cout << "|                                                            Grupo114      ||" << endl;
+	cout << "|__________________________________________________________________________||" << endl;
+	cout << " \\_________________________________________________________________________\\|" << endl;
+	cout << endl;
+	cout << " Ingrese su opcion (y presione 'enter'): ";
+	cin >> opcion;
+	return opcion;
+}
+
+int MostrarMenuDos(){
+	// muestra el menu dos y devuelve la opcion seleccionada
+	system("cls");
+	int opcion;
+	cout << " __________________________________________________________________________" << endl;
+	cout << "|                                                                          |\\" << endl;
+	cout << "|                         Nunca Viste Un Torneo Asi (TM)                   ||" << endl;
+	cout << "|                                                                          ||" << endl;
+	cout << "|              Menu 2                                                      ||" << endl;
 	cout << "|              1. Agregar o Editar Equipo                                  ||" << endl;
 	cout << "|              2. Eliminar Equipo                                          ||" << endl;
 	cout << "|              3. Ver Equipos                                              ||" << endl;
@@ -55,7 +77,6 @@ int MostrarMenu(){
 
 bool YaEstaEquipo(char id[4]){
 	// devuelve TRUE si el equipo ya se encuentra en el archivo, FALSE si no se encuentra
-
 
 	bool devuelvo=false;
 
@@ -115,8 +136,6 @@ bool GuardarEquipo(Equipo equipo){
 	return true;
 }
 
-
-
 void VerEquipos(){
 	// muestra los equipos del archivo
 	
@@ -136,9 +155,6 @@ void VerEquipos(){
 	fclose(archivo);
 
 }
-
-
-
 
 void AgregarEquipo(){
 	// funcion para agregar equipo. Si encuentra que el equipo ya existe, pregunta para modificarlo.
@@ -176,7 +192,6 @@ void AgregarEquipo(){
 	return;
 }
 
-
 void EliminarEquipo(){
 //Funcion para eliminar equipos.	
 char id[4];
@@ -206,19 +221,17 @@ FILE* archivotemp = fopen(FILEtemp, "a");
 	rename("EQUIPOStemp.BIN", "EQUIPOS.BIN");
 }
 
+void Simular(){
+	cout<<"Esta opcion debe simular los partidos y luego mostrar un menu";
+	getch();
+}
 
-
-
-
-int main() {
-	// funcion Main.
-	// Manuel
-
-	int opcion=1;
-	while(opcion!=0){
-		
-		opcion=MostrarMenu();
-		switch (opcion){
+void OpcionesMenuDos(){
+	int opcion2=1;
+	while(opcion2!=0){
+	
+		opcion2=MostrarMenuDos();
+		switch (opcion2){
 			case 1:
 				AgregarEquipo();
 				system("cls"); //Borra la pantalla // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
@@ -238,12 +251,43 @@ int main() {
 				cout << "SALIR" << endl;;
 				break;
 			default:
-				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
+				cout << opcion2 << " no es una opcion valida, intente nuevamente" << endl;
 				getch(); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
 				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
-		}
-	}
+						}
+					}
+				}
+
+int main() {
+	// funcion Main.
+	// Manuel
+
+	int opcion1=1;
+
+	while(opcion1!=0){
+		opcion1=MostrarMenuUno();
+		switch (opcion1){
+			case 1:
+				OpcionesMenuDos();
+				break;
+			case 2:
+				Simular();
+				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
+				break;
+			case 0:
+				cout << "SALIR" << endl;;
+				break;
+			default:
+				cout << opcion1 << " no es una opcion valida, intente nuevamente" << endl;
+				getch(); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
+				system("cls"); // <-- esto es una extension SOLO WINDOWS. Me falla cobardemente en linux. Fallara cobardemente en MacOS tambien.
+						}
+					}
+	
+	
+
 	cout << "Gracias por usar nuestro programa!" << endl;
 
 	return 0;
+
 }

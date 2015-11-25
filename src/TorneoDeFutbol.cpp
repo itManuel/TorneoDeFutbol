@@ -207,19 +207,24 @@ void GuardarEquipos(Equipo equipos[], int lineas){
 	return;
 }
 
+void Simular(){
+	
+	cout<<"Este procedimiento simulara los partidos y mostrara otro menu"<<endl;
+	
+}
 
-void MenuPrincipal(Equipo equipos[MAX_EQUIPOS], int &lineas){
-	// muestra el menu y devuelve la opcion seleccionada
+void MenuSecundario(Equipo equipos[MAX_EQUIPOS], int &lineas){
+	// muestra el menu secundario y devuelve la opcion seleccionada
 	// Manuel
 
 	int opcion=9;
 	while(opcion!=0){
 		MuestroEncabezado();
-		cout << "|              Menu                                                        ||" << endl;
+		cout << "|              Menu 2                                                      ||" << endl;
 		cout << "|              1. Agregar Equipo                                           ||" << endl;
 		cout << "|              2. Eliminar Equipo                                          ||" << endl;
 		cout << "|              3. Ver Equipos                                              ||" << endl;
-		cout << "|              0. Salir                                                    ||" << endl;
+		cout << "|              0. Ir al Menu 1                                             ||" << endl;
 		MuestroPie();
 		cout << endl;
 		cout << " Ingrese su opcion (y presione 'enter'): ";
@@ -242,11 +247,47 @@ void MenuPrincipal(Equipo equipos[MAX_EQUIPOS], int &lineas){
 				cout << "SALIR" << endl;;
 				break;
 			default:
-				cout << opcion << " no es una opción valida, intente nuevamente" << endl;
+				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
 		}
 	}
 	return;
 }
+
+void MenuPrimario(Equipo equipos[MAX_EQUIPOS], int &lineas){
+	// muestra el menu primario y devuelve la opcion seleccionada
+	// Manuel
+
+	int opcion=9;
+	while(opcion!=0){
+		MuestroEncabezado();
+		cout << "|              Menu 1                                                      ||" << endl;
+		cout << "|              1. Editar Equipo                                            ||" << endl;
+		cout << "|              2. Simular                                                  ||" << endl;
+		cout << "|              0. Salir                                                    ||" << endl;
+		cout << "|                                                                          ||" << endl;
+		MuestroPie();
+		cout << endl;
+		cout << " Ingrese su opcion (y presione 'enter'): ";
+		cin >> opcion;
+		switch (opcion){
+			case 1:
+				MenuSecundario(equipos,lineas);
+				break;
+			case 2:
+				Simular();
+				break;
+	
+			case 0:
+				cout << "SALIR" << endl;;
+				break;
+			default:
+				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
+		}
+	}
+	return;
+}
+	
+
 
 int main() {
 	// funcion Main.
@@ -254,7 +295,7 @@ int main() {
 	Equipo equipos[MAX_EQUIPOS];
 	int lineas=0;
 	CargarEquipos(equipos, lineas);
-	MenuPrincipal(equipos, lineas);
+	MenuPrimario(equipos, lineas);
 	GuardarEquipos(equipos, lineas);
 
 	cout << "Gracias por usar nuestro programa!" << endl;
