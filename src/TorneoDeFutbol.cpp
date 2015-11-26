@@ -10,12 +10,23 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <stdlib.h>
+#include <strings.h>
+#include <math.h>
+
 
 struct Equipo {
 	char id[4];
 	char nombre[32];
 	int potenciaAtaque;
 	int potenciaDefensa;
+};
+
+struct Fecha{
+	struct Equipo equipoLocal;
+	struct Equipo equipoVisitante;
+	int golesLocal;
+	int golesVisitante;
 };
 
 namespace {
@@ -27,15 +38,9 @@ const int MAX_EQUIPOS = 100;
 
 using namespace std;
 
-
-
-void ModificarEquipo(char id[4]){
-	// este metodo busca el equipo por el id que recibe, y permite modificarlo
-	// TODO: hay que desarrollarlo
-	// ASIGNED TO:
-	return;
+double randomNumber(){
+    return ((double)rand()) / RAND_MAX;
 }
-
 void CuentoEspacios(char impreso, char formato){
 	int i;
 	for(i=impreso;i<formato;i++){
@@ -207,24 +212,135 @@ void GuardarEquipos(Equipo equipos[], int lineas){
 	return;
 }
 
-void Simular(){
-	
-	cout<<"Este procedimiento simulara los partidos y mostrara otro menu"<<endl;
+void GenerarPartido(int equipos, int fecha, int partido, int &local, int &visitante){
+    local = equipos + fecha - partido;
+    visitante = equipos + fecha + partido;
+    if (equipos % 2 == 0) {
+        if(fecha < partido - 1) {
+            visitante--;
+        }
+        else if(fecha * 2 >= equipos && fecha + partido >= equipos) {
+            local++;
+        }
+        else if(partido - fecha == 1 || partido + fecha == equipos - 1) {
+            local = fecha;
+            visitante = equipos - 1;
+        }
+    }
+    if(fecha % 2 == 0) {
+        int aux = local;
+        local = visitante;
+        visitante = aux;
+    }
+    local = local % equipos;
+    visitante = visitante % equipos;
+}
+
+void SimularPartido(int ataqueLocal, int defensaLocal, int ataqueVisitante, int defensaVisitante, int &golesLocal, int &golesVisitante){
+    golesLocal = round(sqrt(100 + ataqueLocal - defensaVisitante) * pow(randomNumber(), 2) * randomNumber());
+    golesVisitante = round(sqrt(100 + ataqueVisitante - defensaLocal) * pow(randomNumber(), 2) * randomNumber());
+}
+
+int Fechas(int lineas){
+if(lineas % 2 == 0){
+//el numero es par
+return lineas-1 ;
+} 
+else 
+//el numero es impar 
+return lineas;
+}
+
+MostrarPartidosPorFecha(int &lineas,Fecha fecha[MAX_EQUIPOS][MAX_EQUIPOS/2]){
+	int fech, partido;
+	cout<<"Ingrese la fecha de la que se quiere ver los partidos"<<endl;
+	cin>> fech;
+MuestroEncabezado();
+		cout << "|              Partidos de la fecha "<<fech<<"                                      ||" << endl;
+		cout << "|                                                                          ||" << endl;
+	for(partido=0;partido<=floor(lineas/2);partido++)	{
+	cout << "|           "<<fecha[fech][partido].equipoLocal.id<<"  "	
+	<<fecha[fech][partido].equipoLocal.nombre<<"   "
+	<<fecha[fech][partido].golesLocal<<" - "
+	<<fecha[fech][partido].golesVisitante<<"  "
+	<<fecha[fech][partido].equipoVisitante.id<<"  "
+	<<fecha[fech][partido].equipoVisitante.nombre<<endl;
+}
+MuestroPie();
+cout << endl;	
+}
+
+void Simular(Equipo equipos[], int lineas,Fecha fecha[MAX_EQUIPOS][MAX_EQUIPOS/2]){
+
+
+int fech=0, partido=0, local, visitante, golesLocal, golesVisitante;	
+for(fech=0;fech<=Fechas(lineas); fech++)	{
+
+	for(partido=0;partido<=floor(lineas/2);partido++)	{
+
+		GenerarPartido(lineas,fech, partido,local,visitante);
+		SimularPartido(equipos[local].potenciaAtaque,equipos[local].potenciaDefensa,equipos[visitante].potenciaAtaque,equipos[visitante].potenciaDefensa,golesLocal,golesVisitante)	;	
+
+		memcpy(fecha[fech][partido].equipoLocal.id,equipos[local].id,sizeof(fecha[fech][partido].equipoLocal.id));
+		memcpy(fecha[fech][partido].equipoLocal.nombre,equipos[local].nombre,sizeof(fecha[fech][partido].equipoLocal.nombre));
+		memcpy(fecha[fech][partido].equipoVisitante.id,equipos[visitante].id,sizeof(fecha[fech][partido].equipoVisitante.id));
+		memcpy(fecha[fech][partido].equipoVisitante.nombre,equipos[visitante].nombre,sizeof(fecha[fech][partido].equipoVisitante.nombre));
+		fecha[fech][partido].golesLocal= golesLocal;
+		fecha[fech][partido].golesVisitante= golesVisitante;
+		}
+}	
 	
 }
 
-void MenuSecundario(Equipo equipos[MAX_EQUIPOS], int &lineas){
-	// muestra el menu secundario y devuelve la opcion seleccionada
+
+void MenuSimulacion(int &lineas,Fecha fecha[MAX_EQUIPOS][MAX_EQUIPOS/2]){
+// muestra el menu de Simulacion y devuelve la opcion seleccionada
 	// Manuel
 
 	int opcion=9;
 	while(opcion!=0){
 		MuestroEncabezado();
-		cout << "|              Menu 2                                                      ||" << endl;
+		cout << "|              Menu Simulacion                                             ||" << endl;
+		cout << "|              1. Ver Tabla de Posiciones                                  ||" << endl;
+		cout << "|              2. Ver partidos por equipo                                  ||" << endl;
+		cout << "|              3. Ver partidos por fecha                                   ||" << endl;
+		cout << "|              0. Volver                                                   ||" << endl;
+		MuestroPie();
+		cout << endl;
+		cout << " Ingrese su opcion (y presione 'enter'): ";
+		cin >> opcion;
+		switch (opcion){
+			case 1:
+			
+				break;
+			case 2:
+			
+				break;
+			case 3:
+				MostrarPartidosPorFecha(lineas, fecha);
+				break;
+			case 0:
+				cout << "SALIR" << endl;;
+				break;
+			default:
+				cout << opcion << " no es una opción valida, intente nuevamente" << endl;
+		}
+	}
+	return;
+}
+
+void MenuEdicion(Equipo equipos[MAX_EQUIPOS], int &lineas){
+	// muestra el menu y devuelve la opcion seleccionada
+	// Manuel
+
+	int opcion=9;
+	while(opcion!=0){
+		MuestroEncabezado();
+		cout << "|              Menu Edicion                                                ||" << endl;
 		cout << "|              1. Agregar Equipo                                           ||" << endl;
 		cout << "|              2. Eliminar Equipo                                          ||" << endl;
 		cout << "|              3. Ver Equipos                                              ||" << endl;
-		cout << "|              0. Ir al Menu 1                                             ||" << endl;
+		cout << "|              0. Volver                                                   ||" << endl;
 		MuestroPie();
 		cout << endl;
 		cout << " Ingrese su opcion (y presione 'enter'): ";
@@ -247,21 +363,22 @@ void MenuSecundario(Equipo equipos[MAX_EQUIPOS], int &lineas){
 				cout << "SALIR" << endl;;
 				break;
 			default:
-				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
+				cout << opcion << " no es una opción valida, intente nuevamente" << endl;
 		}
 	}
 	return;
 }
 
-void MenuPrimario(Equipo equipos[MAX_EQUIPOS], int &lineas){
-	// muestra el menu primario y devuelve la opcion seleccionada
+void MenuPrincipal(Equipo equipos[MAX_EQUIPOS], int &lineas,Fecha fecha[MAX_EQUIPOS][MAX_EQUIPOS/2]){
+	
+	// muestra el menu y devuelve la opcion seleccionada
 	// Manuel
 
 	int opcion=9;
 	while(opcion!=0){
 		MuestroEncabezado();
-		cout << "|              Menu 1                                                      ||" << endl;
-		cout << "|              1. Editar Equipo                                            ||" << endl;
+		cout << "|              Menu Principal                                              ||" << endl;
+		cout << "|              1. Editar Equipos                                           ||" << endl;
 		cout << "|              2. Simular                                                  ||" << endl;
 		cout << "|              0. Salir                                                    ||" << endl;
 		cout << "|                                                                          ||" << endl;
@@ -271,31 +388,31 @@ void MenuPrimario(Equipo equipos[MAX_EQUIPOS], int &lineas){
 		cin >> opcion;
 		switch (opcion){
 			case 1:
-				MenuSecundario(equipos,lineas);
+				MenuEdicion(equipos,lineas);
 				break;
 			case 2:
-				Simular();
+				Simular(equipos,lineas,fecha);
+				MenuSimulacion(lineas,fecha);
 				break;
 	
 			case 0:
 				cout << "SALIR" << endl;;
 				break;
 			default:
-				cout << opcion << " no es una opcion valida, intente nuevamente" << endl;
+				cout << opcion << " no es una opción valida, intente nuevamente" << endl;
 		}
 	}
 	return;
 }
-	
-
 
 int main() {
 	// funcion Main.
 	// Manuel
 	Equipo equipos[MAX_EQUIPOS];
+	Fecha fecha[MAX_EQUIPOS][MAX_EQUIPOS/2];
 	int lineas=0;
 	CargarEquipos(equipos, lineas);
-	MenuPrimario(equipos, lineas);
+	MenuPrincipal(equipos, lineas, fecha);
 	GuardarEquipos(equipos, lineas);
 
 	cout << "Gracias por usar nuestro programa!" << endl;
