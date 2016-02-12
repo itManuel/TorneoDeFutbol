@@ -22,19 +22,19 @@ struct Nodo{
 	Nodo *sgte;
 };
 
-struct Posiciones{
+struct TablaPos{
+	int GF;
+	int GC;
+	int DG;
 	int PJ;
 	int PG;
 	int PP;
 	int PE;
-	int GF;
-	int GC;
-	int DG;
 	int puntos;
 	int posicion;
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 void MenuSimulacion(Equipo equipos [], int &cantEquipos, Nodo *&puntero); 
 void MenuPrincipal (Equipo equipos [], int &cantEquipos, Nodo *&puntero); 
@@ -47,11 +47,9 @@ void EquipoEstaRegistrado(Equipo equipos[],int cantEquipos,Nodo *puntero,int &po
 void TablaDePosiciones (Equipo equipos [],int cantEquipos,Nodo *puntero);
 void PartidosPorFecha(Equipo equipos [],int cantEquipos,Nodo *puntero);
 void generarPartido (int equipos, int fecha, int partido, short &local, short &visitante);
-
-
 void MezclarEquipos(Equipo equipos [], int cantEquipos);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 int main (){ 
 	int cantEquipos = 0;
@@ -194,7 +192,7 @@ void Simular (Equipo equipos[], int &cantEquipos, Nodo *&puntero){
 
 	MezclarEquipos(equipos, cantEquipos);
 
-	for (int fecha=totalFechas; fecha>0 && fecha < 100 ; fecha--){
+	for (int fecha=totalFechas; fecha>0 ; fecha--){
 		for(int partido=totalPartidos; partido>0 ; partido--){
 			generarPartido (cantEquipos,fecha,partido,local,visitante);
 			simularPartido (equipos[local].potenciaAtaque,equipos[local].potenciaDefensa,equipos[visitante].potenciaAtaque,equipos[visitante].potenciaDefensa,golesLocal,golesVisitante);	
@@ -282,7 +280,7 @@ void PartidosPorFecha(Equipo equipos[],int cantEquipos,Nodo *puntero){
 	int fecha=0;
 	int totalFechas=0,x=0;
 	
-	if (cantEquipos / 2 == 0){
+	if (cantEquipos/2==0){
 		totalFechas=cantEquipos-1;
 	}
 	else {
@@ -308,7 +306,7 @@ void PartidosPorFecha(Equipo equipos[],int cantEquipos,Nodo *puntero){
 }
 
 
-void EquipoEstaRegistrado(Posiciones array[],Nodo *puntero, int cantEquipos,int &posLocal,int &posVisitante){
+void EquipoEstaRegistrado(TablaPos array[],Nodo *puntero, int cantEquipos,int &posLocal,int &posVisitante){
 	int i=0;
 	bool existeLocal=false,existeVisitante=false;
 
@@ -336,9 +334,9 @@ void EquipoEstaRegistrado(Posiciones array[],Nodo *puntero, int cantEquipos,int 
 void TablaDePosiciones(Equipo equipos[],int cantEquipos,Nodo *puntero){
 
 int fecha=0, totalFechas=0,i=0, posLocal,posVisitante;
-Posiciones array[100];
+TablaPos array[100];
 	
-	if (cantEquipos / 2 == 0){
+	if (cantEquipos/2==0){
 		totalFechas=cantEquipos-1;
 	}
 	else {
@@ -428,7 +426,7 @@ for(i=0;i<cantEquipos;i++) {// Si DG es negativo se lo hace positivo
 }
 
 
-Posiciones temp;
+TablaPos temp;
 for(i=0;i<cantEquipos;i++) {
                 for(int j=0;j<100-1;j++) {
 				
