@@ -238,12 +238,12 @@ void MenuEdicion(Equipo equipos[MAX_EQUIPOS], int &cantEquipos){
 	return;
 }
 
-int TorneoDeFutbol01() {
+int TorneoDeFutbol01(Equipo equipos[MAX_EQUIPOS], int &cantEquipos) {
 	// funcion Main.
 	// Manuel
-	Equipo equipos[MAX_EQUIPOS];
-	int cantEquipos=0;
-	CargarEquipos(equipos, cantEquipos);
+	
+
+	//CargarEquipos(equipos, cantEquipos);
 	MenuEdicion(equipos, cantEquipos);
 	GuardarEquipos(equipos, cantEquipos);
 
