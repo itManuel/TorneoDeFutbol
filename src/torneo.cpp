@@ -59,3 +59,4 @@ void simularPartido(int ataqueLocal, int defensaLocal, int ataqueVisitante, int 
     golesLocal = round(sqrt(100 + ataqueLocal - defensaVisitante) * pow(randomNumber(), 2) * randomNumber());
     golesVisitante = round(sqrt(100 + ataqueVisitante - defensaLocal) * pow(randomNumber(), 2) * randomNumber());
 }
+

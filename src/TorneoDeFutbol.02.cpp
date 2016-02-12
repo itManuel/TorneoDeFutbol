@@ -45,7 +45,7 @@ void PartidosPorEquipo (Equipo equipos [],int cantEquipos,Nodo *partidos);
 void EquipoEstaRegistrado(Equipo equipos[],int cantEquipos,Nodo *partidos,int &posLocal,int &posVisitante);
 void TablaDePosiciones (Equipo equipos [],int cantEquipos,Nodo *partidos);
 void PartidosPorFecha(Equipo equipos [],int cantEquipos,Nodo *partidos);
-void generarPartido (int equipos, int fecha, int partido, short &local, short &visitante);
+// void generarPartido (int equipos, int fecha, int partido, short &local, short &visitante);
 void MezclarEquipos(Equipo equipos [], int cantEquipos);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,11 +144,7 @@ void MenuSimulacion(Equipo equipos[],int &cantEquipos,Nodo *&partidos){
 
 
 bool ListaEstaVacia(Nodo *partidos){
-	if(partidos==NULL){
-		return true;
-	}else{
-		return false;	
-	}	
+	return(partidos==NULL);
 }
 
 
@@ -183,7 +179,7 @@ void Simular (Equipo equipos[], int &cantEquipos, Nodo *&partidos){
 	int totalPartidos=0;
 	int i;
 	
-	if (cantEquipos % 2 == 0){
+	if (cantEquipos / 2 == 0){
 		totalFechas=cantEquipos-1;
 	}
 	else {
@@ -195,7 +191,7 @@ void Simular (Equipo equipos[], int &cantEquipos, Nodo *&partidos){
 	MezclarEquipos(equipos, cantEquipos);
 
 	for (int fecha=totalFechas; fecha>0 && fecha < 100 ; fecha--){
-		for(int partido=totalPartidos; partido>0 && partido < 50; partido--){
+		for(int partido=totalPartidos; partido>0 ; partido--){
 			generarPartido (cantEquipos,fecha,partido,local,visitante);
 			simularPartido (equipos[local].potenciaAtaque,equipos[local].potenciaDefensa,equipos[visitante].potenciaAtaque,equipos[visitante].potenciaDefensa,golesLocal,golesVisitante);	
 			PonerEnLista(equipos, partidos,fecha, partido,local,visitante,golesLocal,golesVisitante);
@@ -267,15 +263,11 @@ void PartidosPorEquipo (Equipo equipos[],int cantEquipos, Nodo *partidos){
 	while(!ListaEstaVacia(partidos)){
 		if(strcmp(equipo.id,equipos[partidos->local].id)==0){
 			cout << "|              "<<equipos[partidos->local].id<<"  "<<equipos[partidos->local].nombre<<"          "<<partidos->golesLocal<<" - "<<partidos->golesVisitante<<"          "<<equipos[partidos->visitante].nombre<<"  "<<equipos[partidos->visitante].id<<endl;
-			SacarDeLista(partidos);
 		}
 		else if (strcmp(equipo.id,equipos[partidos->visitante].id)==0){
 			cout << "|              "<<equipos[partidos->local].id<<"  "<<equipos[partidos->local].nombre<<"          "<<partidos->golesLocal<<" - "<<partidos->golesVisitante<<"          "<<equipos[partidos->visitante].nombre<<"  "<<equipos[partidos->visitante].id<<endl;
-			SacarDeLista(partidos);
 		}
-		else{
-			SacarDeLista(partidos);
-		}
+		SacarDeLista(partidos);
 	}
 	MuestroPie();
 }
@@ -286,7 +278,7 @@ void PartidosPorFecha(Equipo equipos[],int cantEquipos,Nodo *partidos){
 	int fecha=0;
 	int totalFechas=0,x=0;
 	
-	if (cantEquipos % 2 == 0){
+	if (cantEquipos / 2 == 0){
 		totalFechas=cantEquipos-1;
 	}
 	else {
@@ -342,7 +334,7 @@ void TablaDePosiciones(Equipo equipos[],int cantEquipos,Nodo *partidos){
 int fecha=0, totalFechas=0,i=0, posLocal,posVisitante;
 Posiciones v[100];
 	
-	if (cantEquipos % 2 == 0){
+	if (cantEquipos / 2 == 0){
 		totalFechas=cantEquipos-1;
 	}
 	else {
